@@ -2,11 +2,12 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Install build dependencies
-RUN apt-get update && apt-get install -y \
+# Install build dependencies for Alpine
+RUN apk add --no-cache \
     python3 \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
+    make \
+    g++ \
+    build-base
 
 # Copy package files
 COPY package*.json ./
@@ -24,7 +25,7 @@ RUN npm run build
 EXPOSE 9000
 
 # Set node environment
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
 # Start application
 CMD ["npm", "start"]
