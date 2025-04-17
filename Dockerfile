@@ -20,6 +20,7 @@ COPY . .
 
 # Build application
 RUN npm run build
+RUN npm install
 
 # Expose port
 EXPOSE 9000
